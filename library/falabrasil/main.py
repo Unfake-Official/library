@@ -1,7 +1,5 @@
 import os
-from organizer.create_audio_folder_and_move_files import create_audio_folder_and_move_files
-from organizer.rename_audio_files import rename_audio_files
-from organizer.unify_txt_files import unify_txt_files
+from organizer import unify_txt_files, rename_audio_files, create_audio_folder_and_move_files
 
 
 root_folder = '/Users/u22156/Downloads/Gabriela-200'
