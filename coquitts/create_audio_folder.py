@@ -1,5 +1,4 @@
-from coquitts import *
+import os
 
-def create_audio_folder(folder:str, subdirectory:str):
-    audio_folder = os.path.join(folder, subdirectory)
-    os.makedirs(audio_folder, exist_ok=True)
+def create_audio_folder(folder: str):
+    os.makedirs(folder, exist_ok=True)
