@@ -4,7 +4,7 @@ from organizer.create_audio_folder_and_move_files import create_audio_folder_and
 from organizer.unify_txt_files import unify_txt_files
 from organizer.rename_audio_files import rename_audio_files
 
-root_folder = '/Users/u22156/Documents/FalaBrasil/VozesV2'
+root_folder = '/Users/u22142/Documents/Vozes'
 
 if __name__ == '__main__':
     try:
