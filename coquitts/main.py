@@ -4,8 +4,8 @@ import time
 from create_audio_folder import create_audio_folder
 from generate_audios import generate_audios
 
-input_folder = '/Users/u22142/Documents/Vozes'
-output_folder = '/Users/u22142/Documents/VozesFalsas'
+input_folder = '/Users/u22142/Documents/Vozes/'
+output_folder = '/Users/u22142/Documents/VozesFalsas/'
 
 if __name__ == '__main__':
     try:
