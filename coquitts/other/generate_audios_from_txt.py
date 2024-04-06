@@ -7,7 +7,7 @@ def generate_audios_from_txt(txt_file_path: str, speaker_voices: list, output_pa
     if os.path.isfile(txt_file_path):
         with open(txt_file_path, 'r') as file:
             # removes the file path from the string, leaving only the audio transcription
-            content = file.read().split('|')[-1]
+            content = file.readline().split('|')[-1]
 
             print(output_path)
             print(list)

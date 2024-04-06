@@ -8,7 +8,7 @@ from TTS.tts.datasets import load_tts_samples
 from TTS.tts.layers.xtts.trainer.gpt_trainer import GPTArgs, GPTTrainer, GPTTrainerConfig, XttsAudioConfig
 from TTS.utils.manage import ModelManager
 
-def train_gpt(language, num_epochs, batch_size, grad_acumm, train_csv, eval_csv, output_path, max_audio_length=255995):
+def train_gpt(language: str, num_epochs: int, batch_size: int, grad_acumm: int, train_csv: str, eval_csv: str, output_path: str, max_audio_length=255995):
     #  Logging parameters
     RUN_NAME = "GPT_XTTS_FT"
     PROJECT_NAME = "XTTS_trainer"
@@ -16,7 +16,7 @@ def train_gpt(language, num_epochs, batch_size, grad_acumm, train_csv, eval_csv,
     LOGGER_URI = None
 
     # Set here the path that the checkpoints will be saved. Default: ./run/training/
-    OUT_PATH = os.path.join(output_path, "run", "training")
+    OUT_PATH = output_path + r"\\run\\training"
 
     # Training Parameters
     OPTIMIZER_WD_ONLY_ON_WEIGHTS = True  # for multi-gpu training please make it False
@@ -29,7 +29,7 @@ def train_gpt(language, num_epochs, batch_size, grad_acumm, train_csv, eval_csv,
     config_dataset = BaseDatasetConfig(
         formatter="coqui",
         dataset_name="ft_dataset",
-        path=os.path.dirname(train_csv),
+        path='',
         meta_file_train=train_csv,
         meta_file_val=eval_csv,
         language=language,

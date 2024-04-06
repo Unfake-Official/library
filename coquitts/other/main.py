@@ -4,8 +4,8 @@ import time
 from create_audio_folder import create_audio_folder
 from generate_audios import generate_audios
 
-input_folder = '/Users/u22142/Documents/Vozes/'
-output_folder = '/Users/u22142/Documents/VozesFalsas/'
+input_folder = r'C:\\Users\\mcsgo\\OneDrive\Documentos\\Vozes\AdrianaMalta_F049'
+output_folder = r'C:\\Users\\mcsgo\\OneDrive\Documentos\\VozesFalsas\AdrianaMalta_F049'
 
 if __name__ == '__main__':
     try:

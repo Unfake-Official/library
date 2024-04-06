@@ -26,7 +26,8 @@ def run_tts(lang, tts_texts, number_of_audios, speaker_audio_file, output_path):
     file = open(tts_texts, 'r')
 
     for i in range(number_of_audios):
-        sentence = file.read().split('|')[-1]
+        sentence = file.readline().split('|')[-1]
+        sentence = sentence.removesuffix('\n')
         
         gpt_cond_latent, speaker_embedding = XTTS_MODEL.get_conditioning_latents(audio_path=speaker_audio_file, gpt_cond_len=XTTS_MODEL.config.gpt_cond_len, max_ref_length=XTTS_MODEL.config.max_ref_len, sound_norm_refs=XTTS_MODEL.config.sound_norm_refs)
         
