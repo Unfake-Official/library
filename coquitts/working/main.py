@@ -2,7 +2,6 @@ import os
 import time
 
 import torch
-import tqdm
 
 from create_audio_folder import create_audio_folder
 from generate_audios import generate_audios
