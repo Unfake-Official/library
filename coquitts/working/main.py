@@ -13,7 +13,6 @@ input_folder = r'C:\\Users\\mcsgo\\OneDrive\Documentos\\Vozes\\'
 output_folder = r'C:\\Users\\mcsgo\\OneDrive\Documentos\\VozesFalsas\\'
 
 if __name__ == '__main__':
-    # try:
     for subdirectory_input, _, _, in os.walk(input_folder):
         if subdirectory_input != input_folder and not subdirectory_input.__contains__('wavs'):
           print(f'Processing in: {subdirectory_input}')
@@ -23,8 +22,6 @@ if __name__ == '__main__':
           subdirectory_output = output_folder + speaker_name
           
           device = 'cuda' if torch.cuda.is_available() else 'cpu'
-          
-          # link to config: https://coqui.gateway.scarf.sh/hf-coqui/XTTS-v2/main/config.json
           
           # link to model: https://coqui.gateway.scarf.sh/hf-coqui/XTTS-v2/main/model.pth
           
@@ -41,6 +38,3 @@ if __name__ == '__main__':
 
           create_audio_folder(subdirectory_output)
           generate_audios(subdirectory_input, subdirectory_output, model)
-
-    # except Exception as error:
-    #   print(f'An error ocurred during processing. Message: {error}.')
