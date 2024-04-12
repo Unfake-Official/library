@@ -12,9 +12,9 @@ def generate_audios_from_txt(txt_file_path: str, gpt_cond_latent, speaker_embedd
         with open(txt_file_path, 'r', encoding='utf-8-sig') as file:
 
             data = file.readlines()
-            
+
             print('Generating deepfakes')
-            
+
             for ix, line in enumerate(tqdm(data)):
                 if ix < 584:
                     continue
@@ -30,5 +30,5 @@ def generate_audios_from_txt(txt_file_path: str, gpt_cond_latent, speaker_embedd
                     speaker_embedding
                 )
                 torchaudio.save(output, torch.tensor(out["wav"]).unsqueeze(0), 24000)
-                
+
             print('Deepfakes generated successfully')

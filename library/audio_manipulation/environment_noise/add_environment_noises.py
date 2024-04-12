@@ -1,5 +1,8 @@
 from pydub import AudioSegment
 
+voice_booster = 7
+noise_hinder = 7
+
 voice_audio = AudioSegment.from_file('/Users/u22156/Documents/Teste ruidos/480.wav', format='wav')
 noise = AudioSegment.from_file('/Users/u22156/Documents/Teste ruidos/thunderstorm.wav', format='wav')
 
