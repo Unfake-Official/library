@@ -16,8 +16,6 @@ def generate_audios_from_txt(txt_file_path: str, gpt_cond_latent, speaker_embedd
             print('Generating deepfakes')
 
             for ix, line in enumerate(tqdm(data)):
-                if ix < 584:
-                    continue
                 # removes the file path from the string, leaving only the audio transcription
                 content = line.split('|')[-1]
 
