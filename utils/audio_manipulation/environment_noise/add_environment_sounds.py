@@ -5,32 +5,37 @@ from pydub import AudioSegment
 voice_booster = 7
 noise_hinder = 7
 
-voices_folder = '/Users/u22156/Documents/Voice1/'
-noise_folder = '/Users/u22156/Documents/Ruidos/'
-output_folder = '/Users/u22156/Documents/Teste ruidos/output/'
+voices_folder = '/Users/u22142/Documents/VozesFalsas'
+noise_folder = '/Users/u22142/Documents/VozesFalsas/DanielRibeiro_M002_Fake'
+output_folder = '/Users/u22142/Documents/VozesFalsas_Environment'
 
 # Get percentage of the original voices to change
 percentage = 16.7
 
 # Get random noises to introduce into the audios
-environment_sounds = [audio for audio in os.listdir(noise_folder) if os.path.isfile(audio)]
+environment_sounds = [audio for audio in os.listdir(noise_folder)]
 
 for subdirectory_input, _, _, in os.walk(voices_folder):
     if subdirectory_input != voices_folder and not subdirectory_input.__contains__('wavs'):
         print(f'Processing in: {subdirectory_input}')
 
-        fake_audios = [audio for audio in os.listdir(subdirectory_input) if os.path.isfile(audio)]
+        fake_audios = [audio for audio in os.listdir(subdirectory_input)]
         audios_to_change = int(len(fake_audios) * percentage / 100)
         audios = random.sample(fake_audios, audios_to_change)
+
+        speaker_name = subdirectory_input.split('/')[-1]
+        subdirectory_output = os.path.join(output_folder, speaker_name)
+
+        os.makedirs(subdirectory_output, exist_ok=True)
 
         for ix, audio in enumerate(audios):
             noise = random.choice(environment_sounds)
 
-            loaded_audio = AudioSegment.from_file(os.path.join(subdirectory_input, audio), format='wav')
-            loaded_noise = AudioSegment.from_file(os.path.join(noise_folder, noise), format='wav')
+            loaded_audio = AudioSegment.from_file(os.path.join(subdirectory_input, audio))
+            loaded_noise = AudioSegment.from_file(os.path.join(noise_folder, noise))
 
             handled_audio = loaded_audio + voice_booster
             handled_noise = loaded_noise - noise_hinder
 
             overlayed = handled_audio.overlay(handled_noise)
-            overlayed.export(output_folder + f'/{ix+1}.wav', format='wav')
+            overlayed.export(os.path.join(subdirectory_output, f'{ix+1}.wav'), format='wav')
