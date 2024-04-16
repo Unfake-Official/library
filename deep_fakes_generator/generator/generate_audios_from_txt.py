@@ -1,4 +1,7 @@
-# this code is based on ⓍTTS (CoquiTTS' Text-to-Speech model) documentation, available at https://docs.coqui.ai/en/latest/models/xtts.html#tts-api
+'''
+This code is based on ⓍTTS (CoquiTTS' Text-to-Speech model) documentation, available at:
+https://docs.coqui.ai/en/latest/models/xtts.html#tts-api
+'''
 import os
 import torch
 import torchaudio
@@ -10,7 +13,6 @@ from TTS.tts.models.xtts import Xtts
 def generate_audios_from_txt(txt_file_path: str, gpt_cond_latent, speaker_embedding, output_path: str, model: Xtts):
     if os.path.isfile(txt_file_path):
         with open(txt_file_path, 'r', encoding='utf-8-sig') as file:
-
             data = file.readlines()
 
             print('Generating deepfakes')
@@ -27,6 +29,6 @@ def generate_audios_from_txt(txt_file_path: str, gpt_cond_latent, speaker_embedd
                     gpt_cond_latent,
                     speaker_embedding
                 )
-                torchaudio.save(output, torch.tensor(out["wav"]).unsqueeze(0), 24000)
+                torchaudio.save(output, torch.tensor(out['wav']).unsqueeze(0), 24000)
 
             print('Deepfakes generated successfully')
