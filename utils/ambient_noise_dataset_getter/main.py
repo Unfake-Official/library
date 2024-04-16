@@ -1,12 +1,11 @@
 import requests
 from urllib.request import urlretrieve
-from tqdm import tqdm
 
 def query(url):
     response = requests.get(url)
     return response.json()
 
-output_folder = r'C:\Users\mcsgo\OneDrive\Documentos\Noise'
+output_folder = r''
 
 # dataset chosen has 5775 rows
 n_rows = 5775
