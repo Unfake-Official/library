@@ -2,12 +2,12 @@ import os
 import random
 from pydub import AudioSegment
 
-voice_booster = 7
-noise_hinder = 7
+voice_booster = 7 # Increases voice audio in 7db
+noise_hinder = 7 # Decreases noise audio in 7db
 
-voices_folder = '/Users/u22142/Documents/VozesFalsas'
-noise_folder = '/Users/u22142/Documents/VozesFalsas/DanielRibeiro_M002_Fake'
-output_folder = '/Users/u22142/Documents/VozesFalsas_Environment'
+voices_folder = r''
+noise_folder  = r''
+output_folder = r''
 
 # Get percentage of the original voices to change
 percentage = 16.7
@@ -40,5 +40,6 @@ def add_environment_sounds(voice_booster, noise_hinder, voices_folder, noise_fol
 
                 overlayed = handled_audio.overlay(handled_noise)
                 overlayed.export(os.path.join(subdirectory_output, f'{ix+1}.wav'), format='wav')
+
 
 add_environment_sounds(voice_booster, noise_hinder, voices_folder, noise_folder, output_folder, percentage)

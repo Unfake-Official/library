@@ -38,11 +38,11 @@ def noise_to_audio_spectrogram(D: np.ndarray, output_image_file):
 input_folder = r'/Users/u22142/Documents/Espectrogramas'
 output_folder = r'/Users/u22142/Documents/Espectrogramas_Noise'
 
-n_audios = 1000
+n_spectrograms = 1000
 noise_rate = 0.5
 noise_percentage = 16.7
 
-def add_noise(input_folder, output_folder, n_audios, noise_rate, noise_percentage):
+def add_noise(input_folder, output_folder, n_spectrograms, noise_rate, noise_percentage):
     for subdirectory_input, _, _, in os.walk(input_folder):
         if subdirectory_input != input_folder:
 
@@ -53,8 +53,8 @@ def add_noise(input_folder, output_folder, n_audios, noise_rate, noise_percentag
 
             os.makedirs(subdirectory_output, exist_ok=True)
 
-            audio_list = os.listdir(subdirectory_input)
-            sample = random.sample(audio_list, int(n_audios * noise_percentage / 100))
+            spectrogram_list = os.listdir(subdirectory_input)
+            sample = random.sample(spectrogram_list, int(n_spectrograms * noise_percentage / 100))
 
             for ix, file_name in enumerate(sample):
                 input_image_file = os.path.join(subdirectory_input, file_name)
@@ -63,4 +63,4 @@ def add_noise(input_folder, output_folder, n_audios, noise_rate, noise_percentag
                 signal = add_spectrogram_noise(signal, noise_rate)
                 noise_to_audio_spectrogram(signal, output_image_file)
 
-add_noise(input_folder, output_folder, n_audios, noise_rate, noise_percentage)
+add_noise(input_folder, output_folder, n_spectrograms, noise_rate, noise_percentage)
