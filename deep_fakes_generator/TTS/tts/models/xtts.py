@@ -1,5 +1,6 @@
 import os
 from dataclasses import dataclass
+from tqdm import tqdm
 
 import librosa
 import torch
@@ -353,7 +354,7 @@ class Xtts(BaseTTS):
         speaker_embeddings = []
         audios = []
         speaker_embedding = None
-        for file_path in audio_paths:
+        for file_path in tqdm(audio_paths):
             audio = load_audio(file_path, load_sr)
             audio = audio[:, : load_sr * max_ref_length].to(self.device)
             if sound_norm_refs:

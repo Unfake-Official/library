@@ -10,8 +10,8 @@ from generate_audios import generate_audios
 from TTS.tts.configs.xtts_config import XttsConfig
 from TTS.tts.models.xtts import Xtts
 
-input_folder  = r''
-output_folder = r''
+input_folder  = r'C:\Users\mcsgo\OneDrive\Documentos\Vozes'
+output_folder = r'C:\Users\mcsgo\OneDrive\Documentos\VozesFalsas'
 
 for subdirectory_input, _, _, in os.walk(input_folder):
     # For each speaker in input folder
@@ -20,9 +20,11 @@ for subdirectory_input, _, _, in os.walk(input_folder):
         time.sleep(1)
 
         speaker_name = subdirectory_input.split('\\')[-1] + '_Fake'
-        subdirectory_output = output_folder + speaker_name
+        subdirectory_output = os.path.join(output_folder, speaker_name)
 
         device = 'cuda' if torch.cuda.is_available() else 'cpu'
+
+        print('Using', device)
 
         print('Loading model')
 

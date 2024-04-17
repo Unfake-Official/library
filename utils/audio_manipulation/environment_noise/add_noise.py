@@ -42,22 +42,25 @@ n_audios = 1000
 noise_rate = 0.5
 noise_percentage = 16.7
 
-for subdirectory_input, _, _, in os.walk(input_folder):
-  if subdirectory_input != input_folder:
+def add_noise(input_folder, output_folder, n_audios, noise_rate, noise_percentage):
+    for subdirectory_input, _, _, in os.walk(input_folder):
+        if subdirectory_input != input_folder:
 
-    print(f'Processing in: {subdirectory_input}')
+            print(f'Processing in: {subdirectory_input}')
 
-    speaker_name = subdirectory_input.split('/')[-1]
-    subdirectory_output = os.path.join(output_folder, speaker_name)
+            speaker_name = subdirectory_input.split('/')[-1]
+            subdirectory_output = os.path.join(output_folder, speaker_name)
 
-    os.makedirs(subdirectory_output, exist_ok=True)
+            os.makedirs(subdirectory_output, exist_ok=True)
 
-    audio_list = os.listdir(subdirectory_input)
-    sample = random.sample(audio_list, int(n_audios * noise_percentage / 100))
+            audio_list = os.listdir(subdirectory_input)
+            sample = random.sample(audio_list, int(n_audios * noise_percentage / 100))
 
-    for ix, file_name in enumerate(sample):
-        input_image_file = os.path.join(subdirectory_input, file_name)
-        output_image_file = os.path.join(subdirectory_output, f'{ix+1}_noise.png')
-        signal = spectrogram_to_audio(input_image_file)
-        signal = add_spectrogram_noise(signal, noise_rate)
-        noise_to_audio_spectrogram(signal, output_image_file)
+            for ix, file_name in enumerate(sample):
+                input_image_file = os.path.join(subdirectory_input, file_name)
+                output_image_file = os.path.join(subdirectory_output, f'{ix+1}_noise.png')
+                signal = spectrogram_to_audio(input_image_file)
+                signal = add_spectrogram_noise(signal, noise_rate)
+                noise_to_audio_spectrogram(signal, output_image_file)
+
+add_noise(input_folder, output_folder, n_audios, noise_rate, noise_percentage)

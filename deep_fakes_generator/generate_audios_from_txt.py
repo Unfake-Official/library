@@ -21,7 +21,7 @@ def generate_audios_from_txt(txt_file_path: str, gpt_cond_latent, speaker_embedd
                 # removes the file path from the string, leaving only the audio transcription
                 content = line.split('|')[-1]
 
-                output = output_path + f'\\{ix+1}_fake.wav'
+                output = os.path.join(output_path, f'{ix+1}_fake.wav')
 
                 out = model.inference(
                     content,

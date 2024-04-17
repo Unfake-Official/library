@@ -8,8 +8,8 @@ def generate_audios(input_folder: str, output_folder: str, model: Xtts):
     print('Adding audios to list')
     speaker_audios = list()
     # iterates through the original audios folder and appends the inner files paths
-    for file_name in os.listdir(input_folder + '/wavs'):
-        speaker_audios.append(input_folder + '/wavs/' + file_name)
+    for file_name in os.listdir(os.path.join(input_folder, 'wavs')):
+        speaker_audios.append(os.path.join(input_folder, 'wavs', file_name))
 
     print('Audios added successfully')
 
@@ -18,4 +18,4 @@ def generate_audios(input_folder: str, output_folder: str, model: Xtts):
 
     print('Speaker processed successfully')
 
-    generate_audios_from_txt(input_folder + '/texts.txt', gpt_cond_latent, speaker_embedding, output_folder, model)
+    generate_audios_from_txt(os.path.join(input_folder, 'texts.txt'), gpt_cond_latent, speaker_embedding, output_folder, model)
