@@ -1,6 +1,6 @@
 from add_environment_sounds import add_environment_sounds
 from add_noise import add_noise
-from spectrograms.main import generate_spectrograms
+from main import generate_spectrograms
 
 input_folder = r'/Users/u22142/Documents/Espectrogramas'
 output_folder = r'/Users/u22142/Documents/Espectrogramas_Noise'
