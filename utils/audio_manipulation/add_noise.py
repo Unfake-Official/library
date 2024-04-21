@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import os
 import random
-from audio_to_spectrogram import audio_to_spectrogram
+from generate_spectrograms import audio_to_spectrogram
 
 # Define a function to add noise to the spectrogram
 def add_spectrogram_noise(spectrogram, noise_level):
@@ -46,13 +46,15 @@ def add_noise(input_folder, output_folder, n_spectrograms, noise_rate, noise_per
             os.makedirs(subdirectory_output, exist_ok=True)
 
             spectrogram_list = os.listdir(subdirectory_input)
-            spectrogram_list.remove(subdirectory_input)
             sample = random.sample(spectrogram_list, int(n_spectrograms * noise_percentage / 100))
 
             for ix, file_name in enumerate(sample):
                 input_audio_file = os.path.join(subdirectory_input, ('wavs' if not is_fake else ''), file_name)
                 output_image_file = os.path.join(subdirectory_output, f'{ix+1}_noise.png')
-                signal, sr = audio_to_spectrogram(input_audio_file, output_image_file, save=False)
-                noise_to_audio_spectrogram(signal, output_image_file, sr, noise_rate)
+                try:
+                    signal, sr = audio_to_spectrogram(input_audio_file, output_image_file, save=False)
+                    noise_to_audio_spectrogram(signal, output_image_file, sr, noise_rate)
+                except:
+                    continue
 
 add_noise(input_folder, output_folder, n_spectrograms, noise_rate, noise_percentage)

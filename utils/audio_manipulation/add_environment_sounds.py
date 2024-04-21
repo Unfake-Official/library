@@ -5,9 +5,9 @@ from pydub import AudioSegment
 voice_booster = 7 # Increases voice audio in 7db
 noise_hinder = 7 # Decreases noise audio in 7db
 
-voices_folder = r''
-noise_folder  = r''
-output_folder = r''
+voices_folder = r'C:\Users\mcsgo\OneDrive\Documentos\VozesFalsas'
+noise_folder  = r'C:\Users\mcsgo\OneDrive\Documentos\Noise'
+output_folder = r'C:\Users\mcsgo\OneDrive\Documentos\Environment'
 
 # Get percentage of the original voices to change
 percentage = 16.7
@@ -24,7 +24,7 @@ def add_environment_sounds(voice_booster, noise_hinder, voices_folder, noise_fol
             audios_to_change = int(len(fake_audios) * percentage / 100)
             audios = random.sample(fake_audios, audios_to_change)
 
-            speaker_name = subdirectory_input.split('/')[-1]
+            speaker_name = subdirectory_input.split('\\')[-1]
             subdirectory_output = os.path.join(output_folder, speaker_name)
 
             os.makedirs(subdirectory_output, exist_ok=True)
@@ -32,8 +32,8 @@ def add_environment_sounds(voice_booster, noise_hinder, voices_folder, noise_fol
             for ix, audio in enumerate(audios):
                 noise = random.choice(environment_sounds)
 
-                loaded_audio = AudioSegment.from_file(os.path.join(subdirectory_input, audio))
-                loaded_noise = AudioSegment.from_file(os.path.join(noise_folder, noise))
+                loaded_audio = AudioSegment.from_file(os.path.join(subdirectory_input, audio), format='wav')
+                loaded_noise = AudioSegment.from_file(os.path.join(noise_folder, noise), format='wav')
 
                 handled_audio = loaded_audio + voice_booster
                 handled_noise = loaded_noise - noise_hinder
