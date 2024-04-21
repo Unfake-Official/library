@@ -4,6 +4,21 @@ from typing import Optional
 from TTS.utils.download import download_kaggle_dataset, download_url, extract_archive
 
 
+def download_falabrasil(url: str, output_path: str):
+    """Download and extract Audio Corpora Fala Brasil dataset
+
+    Args:
+        url: (str): speaker zip url dataset
+        path (str): path to the directory where the dataset will be stored.
+    """
+    os.makedirs(output_path, exist_ok=True)
+    download_url(url, output_path)
+    basename = os.path.basename(url)
+    archive = os.path.join(output_path, basename)
+    print(" > Extracting archive file...")
+    extract_archive(archive)
+
+
 def download_ljspeech(path: str):
     """Download and extract LJSpeech dataset
 

@@ -19,7 +19,7 @@ for subdirectory_input, _, _, in os.walk(input_folder):
         print(f'Processing in: {subdirectory_input}')
         time.sleep(1)
 
-        speaker_name = subdirectory_input.split('\\')[-1] + '_Fake'
+        speaker_name = subdirectory_input.split('\\' if '\\' in subdirectory_input else '/')[-1] + '_Fake'
         subdirectory_output = os.path.join(output_folder, speaker_name)
 
         device = 'cuda' if torch.cuda.is_available() else 'cpu'

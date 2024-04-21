@@ -40,7 +40,7 @@ def add_noise(input_folder, output_folder, n_spectrograms, noise_rate, noise_per
 
             print(f'Processing in: {subdirectory_input}')
 
-            speaker_name = subdirectory_input.split('\\')[-1]
+            speaker_name = subdirectory_input.split('\\' if '\\' in subdirectory_input else '/')[-1]
             subdirectory_output = os.path.join(output_folder, speaker_name)
 
             os.makedirs(subdirectory_output, exist_ok=True)

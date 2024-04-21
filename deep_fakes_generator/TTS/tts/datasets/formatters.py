@@ -90,6 +90,24 @@ def coqui(root_path, meta_file, ignored_speakers=None):
     return items
 
 
+def fala_brasil(root_path, meta_file, ignored_speakers=None):
+    """Normalize the fala_brasil voice meta data file to TTS format."""
+    txt_file = os.path.join(root_path, meta_file)
+    items = []
+    speaker_name = root_path.split('\\' if '\\' in root_path else '/')[-1]
+
+    with open(txt_file, "r", encoding="utf-8") as ttf:
+        for line in ttf:
+            data = line.split('|')
+            wav_file = os.path.join(root_path, data[0])
+            text = data[1]
+
+            items.append(
+                {"text": text, "audio_file": wav_file, "speaker_name": speaker_name, "root_path": root_path}
+            )
+    return items
+
+
 def tweb(root_path, meta_file, **kwargs):  # pylint: disable=unused-argument
     """Normalize TWEB dataset.
     https://www.kaggle.com/bryanpark/the-world-english-bible-speech-dataset
