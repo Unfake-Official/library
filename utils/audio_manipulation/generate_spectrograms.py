@@ -29,7 +29,7 @@ def audio_to_spectrogram(input_audio_file: str, output_image_file: str, save: bo
     return C, sr
 
 
-input_folder = r"C:\Users\mcsgo\OneDrive\Documentos\temp"
+input_folder = r"C:\Users\mcsgo\OneDrive\Documentos\VozesFalsas"
 output_folder = r"C:\Users\mcsgo\OneDrive\Documentos\Espectrogramas"
 is_fake = True  # true if the folder contains fake audios, otherwise false
 
