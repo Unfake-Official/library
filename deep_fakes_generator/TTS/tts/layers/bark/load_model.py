@@ -107,12 +107,6 @@ def load_model(ckpt_path, device, config, model_type="text"):
         ModelClass = FineGPT
     else:
         raise NotImplementedError()
-    if (
-        not config.USE_SMALLER_MODELS
-        and os.path.exists(ckpt_path)
-        and _md5(ckpt_path) != config.REMOTE_MODEL_PATHS[model_type]["checksum"]
-    ):
-        logger.warning(f"found outdated {model_type} model, removing...")
         os.remove(ckpt_path)
     if not os.path.exists(ckpt_path):
         logger.info(f"{model_type} model not found, downloading...")

@@ -7,10 +7,8 @@ import torch
 import torchaudio
 from tqdm import tqdm
 
-from TTS.tts.models.xtts import Xtts
 
-
-def generate_audios_from_txt(txt_file_path: str, gpt_cond_latent, speaker_embedding, output_path: str, model: Xtts):
+def generate_audios_from_txt(txt_file_path: str, gpt_cond_latent, speaker_embedding, output_path: str, model):
     if os.path.isfile(txt_file_path):
         with open(txt_file_path, 'r', encoding='utf-8-sig') as file:
             data = file.readlines()

@@ -1,10 +1,9 @@
 import os
 
-from TTS.tts.models.xtts import Xtts
 from generate_audios_from_txt import generate_audios_from_txt
 
 
-def generate_audios(input_folder: str, output_folder: str, model: Xtts):
+def generate_audios(input_folder: str, output_folder: str, model):
     print('Adding audios to list')
     speaker_audios = list()
     # iterates through the original audios folder and appends the inner files paths

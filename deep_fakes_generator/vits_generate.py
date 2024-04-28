@@ -1,14 +1,11 @@
-'''
-Link to pretrained portuguese model from CoquiTTS' Text-to-Speech: https://coqui.gateway.scarf.sh/hf-coqui/XTTS-v2/main/model.pth
-'''
 import os
 import time
 import torch
 
 from generate_audios import generate_audios
 
-from TTS.tts.configs.xtts_config import XttsConfig
-from TTS.tts.models.xtts import Xtts
+from TTS.tts.configs.vits_config import VitsConfig
+from TTS.tts.models.vits import Vits
 
 input_folder  = r'C:\Users\mcsgo\OneDrive\Documentos\Vozes'
 output_folder = r'C:\Users\mcsgo\OneDrive\Documentos\VozesFalsas'
@@ -23,20 +20,27 @@ for subdirectory_input, _, _, in os.walk(input_folder):
         subdirectory_output = os.path.join(output_folder, speaker_name)
 
         device = 'cuda' if torch.cuda.is_available() else 'cpu'
-        device = 'cpu'
 
         print('Using', device)
 
         print('Loading model')
 
-        config = XttsConfig()
+        config = VitsConfig()
         config.load_json(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'config.json'))
 
-        model = Xtts.init_from_config(config)
-        model.load_checkpoint(config, checkpoint_dir=os.path.dirname(os.path.abspath(__file__)), vocab_path=os.path.join(os.path.dirname(os.path.abspath(__file__)), 'vocab.json'), use_deepspeed=False)
+        model = Vits.init_from_config(config)
+        model.load_checkpoint(config, checkpoint_path=os.path.dirname(os.path.abspath(__file__)))
 
         model.to(device)
         print('Model loaded successfully')
 
         os.makedirs(subdirectory_output, exist_ok=True)
         generate_audios(subdirectory_input, subdirectory_output, model)
+
+# # use the code below to download models
+
+# from TTS.api import TTS
+
+# # C:\Users\mcsgo\AppData\Local\tts\tts_models--ptl--cv--vits
+# # tts_models/multilingual/multi-dataset/your_tts
+# tts = TTS("tts_models/pt/cv/vits", gpu=True)
