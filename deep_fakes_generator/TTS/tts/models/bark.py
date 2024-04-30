@@ -174,7 +174,7 @@ class Bark(BaseTTS):
         if voice_dir is not None:
             voice_dirs = [voice_dir]
             try:
-                _ = load_voice(speaker_id, voice_dirs)
+                _ = load_voice(None, voice=speaker_id, extra_voice_dirs=voice_dirs)
             except (KeyError, FileNotFoundError):
                 output_path = os.path.join(voice_dir, speaker_id + ".npz")
                 os.makedirs(voice_dir, exist_ok=True)

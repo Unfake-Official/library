@@ -7,8 +7,8 @@ from generate_audios import generate_audios
 from TTS.tts.configs.vits_config import VitsConfig
 from TTS.tts.models.vits import Vits
 
-input_folder  = r'C:\Users\mcsgo\OneDrive\Documentos\Vozes'
-output_folder = r'C:\Users\mcsgo\OneDrive\Documentos\VozesFalsas'
+input_folder  = r'/Users/u22142/Documents/Vozes'
+output_folder = r'/Users/u22142/Documents/VozesFalsas'
 
 for subdirectory_input, _, _, in os.walk(input_folder):
     # For each speaker in input folder
@@ -26,13 +26,15 @@ for subdirectory_input, _, _, in os.walk(input_folder):
         print('Loading model')
 
         config = VitsConfig()
-        config.load_json(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'config.json'))
+        config.load_json(r'/Users/u22142/Library/Application Support/tts/tts_models--pt--cv--vits/config.json')
 
         model = Vits.init_from_config(config)
-        model.load_checkpoint(config, checkpoint_path=os.path.dirname(os.path.abspath(__file__)))
+        model.load_checkpoint(config, r'/Users/u22142/Library/Application Support/tts/tts_models--pt--cv--vits/model_file.pth.tar')
 
         model.to(device)
         print('Model loaded successfully')
+
+        model.format_batch()
 
         os.makedirs(subdirectory_output, exist_ok=True)
         generate_audios(subdirectory_input, subdirectory_output, model)
@@ -43,4 +45,4 @@ for subdirectory_input, _, _, in os.walk(input_folder):
 
 # # C:\Users\mcsgo\AppData\Local\tts\tts_models--ptl--cv--vits
 # # tts_models/multilingual/multi-dataset/your_tts
-# tts = TTS("tts_models/pt/cv/vits", gpu=True)
+# tts = TTS("tts_models/pt/cv/vits")
