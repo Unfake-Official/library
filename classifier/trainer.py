@@ -61,7 +61,7 @@ class Trainer:
         self.test_loss(loss)
         self.test_accuracy(labels, predictions)
 
-    def train(self, epochs: int, train_ds, test_ds, checkpoint_path: str):
+    def train(self, epochs: int, train_ds, test_ds, checkpoint_path: str, metrics_path: str):
         for _ in range(epochs):
             self.train_loss.reset_states()
             self.train_accuracy.reset_states()
@@ -82,4 +82,4 @@ class Trainer:
 
             self.model.save_weights(checkpoint_path)
 
-        self.plot('metrics.png')
+        self.plot(metrics_path)
