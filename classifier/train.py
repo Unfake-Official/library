@@ -1,7 +1,8 @@
 import os
 import tensorflow as tf
 from model import Classifier
-from .trainer import Trainer
+from trainer import Trainer
+import matplotlib.pyplot as plt
 
 EPOCHS = 100
 BATCH_SIZE = 32
@@ -9,29 +10,36 @@ VALIDATION_SPLIT = 0.2
 
 IMG_SIZE = (256, 256)
 
-CHECKPOINT_PATH = 'checkpoints/checkpoint'
+CHECKPOINT_PATH = 'checkpoints'
 METRICS_PATH = 'metrics/metrics.png'
 '''
 dataset folder with the following structure:
 main_directory/
-    class_a/
+    fake/
         img1
         img2
         ...
-    class_b/
+    other/
         img1
         img2
         ...
-    ...
+    real/
+        img1
+        img2
+        ...
 '''
-DATASET_PATH = ''
+DATASET_PATH = r'C:\Users\mcsgo\OneDrive\Documentos\Dataset'
 
 model = Classifier()
-if os.path.exists(CHECKPOINT_PATH):
-    model.load_weights(CHECKPOINT_PATH)
+# if os.path.exists(CHECKPOINT_PATH):
+#     model.load_weights(CHECKPOINT_PATH)
+# else:
+#     os.mkdir(CHECKPOINT_PATH)
 
 train_ds, test_ds = tf.keras.utils.image_dataset_from_directory(
     DATASET_PATH,
+    label_mode='categorical',
+    color_mode='grayscale',
     validation_split=VALIDATION_SPLIT,
     subset='both',
     seed=123,

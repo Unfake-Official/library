@@ -5,9 +5,6 @@ class Classifier(tf.keras.Model):
     def __init__(self):
         super(Classifier, self).__init__()
 
-        # image in grayscale (1 color dimension) with 256x256 px resolution
-        self.rescale = tf.keras.layers.Rescaling(1./255, input_shape=(256,256,1))
-
         # convolution + feature extraction
         self.conv1 = tf.keras.layers.Conv2D(16, (16,16), activation='relu')
         self.max_pool1 = tf.keras.layers.MaxPool2D(pool_size=2, strides=2)
@@ -23,7 +20,6 @@ class Classifier(tf.keras.Model):
         self.d2 = tf.keras.layers.Dense(3, activation='softmax')
 
     def call(self, x):
-        x = self.rescale(x)
         x = self.conv1(x)
         x = self.max_pool1(x)
         x = self.conv2(x)
