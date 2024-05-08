@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 import os
 import random
 from generate_spectrograms import audio_to_spectrogram
+import PIL.Image as img
 
 # Define a function to add noise to the spectrogram
 def add_spectrogram_noise(spectrogram, noise_level):
@@ -23,6 +24,9 @@ def noise_to_audio_spectrogram(D: np.ndarray, output_image_file, sr, noise_level
 
     # Save the noisy spectrogram as an image file
     plt.imsave(output_image_file, noisy_D, cmap='gray')
+    image = img.open(output_image_file)
+    new_image = image.resize((256, 256))
+    new_image.save(output_image_file)
 
 
 input_folder = r"C:\Users\mcsgo\OneDrive\Documentos\VozesFalsas"
@@ -41,7 +45,7 @@ def add_noise(input_folder, output_folder, n_spectrograms, noise_rate, noise_per
             print(f'Processing in: {subdirectory_input}')
 
             speaker_name = subdirectory_input.split('\\' if '\\' in subdirectory_input else '/')[-1]
-            subdirectory_output = os.path.join(output_folder, speaker_name)
+            subdirectory_output = os.path.join(output_folder, f'{speaker_name}_Noise')
 
             os.makedirs(subdirectory_output, exist_ok=True)
 

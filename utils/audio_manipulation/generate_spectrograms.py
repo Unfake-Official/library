@@ -29,9 +29,9 @@ def audio_to_spectrogram(input_audio_file: str, output_image_file: str, save: bo
     return C, sr
 
 
-input_folder = r"C:\Users\mcsgo\OneDrive\Documentos\temp"
-output_folder = r"C:\Users\mcsgo\OneDrive\Documentos\Espectrogramas"
-is_fake = False  # true if the folder contains fake audios, otherwise false
+input_folder = r"C:\Users\mcsgo\OneDrive\Documentos\Environment"
+output_folder = r"C:\Users\mcsgo\OneDrive\Documentos\EspectrogramasEnvironment"
+is_fake = True  # true if the folder contains fake audios, otherwise false
 
 
 def generate_spectrograms(input_folder, output_folder, is_fake):
@@ -55,4 +55,5 @@ def generate_spectrograms(input_folder, output_folder, is_fake):
                 audio_to_spectrogram(input_audio_file, output_image_file)
 
 
-generate_spectrograms(input_folder, output_folder, is_fake)
+if __name__ == '__main__':
+    generate_spectrograms(input_folder, output_folder, is_fake)

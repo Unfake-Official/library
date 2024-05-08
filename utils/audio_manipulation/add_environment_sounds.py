@@ -25,7 +25,7 @@ def add_environment_sounds(voice_booster, noise_hinder, voices_folder, noise_fol
             audios = random.sample(fake_audios, audios_to_change)
 
             speaker_name = subdirectory_input.split('\\' if '\\' in subdirectory_input else '/')[-1]
-            subdirectory_output = os.path.join(output_folder, speaker_name)
+            subdirectory_output = os.path.join(output_folder, f'{speaker_name}_Environment')
 
             os.makedirs(subdirectory_output, exist_ok=True)
 
@@ -42,4 +42,5 @@ def add_environment_sounds(voice_booster, noise_hinder, voices_folder, noise_fol
                 overlayed.export(os.path.join(subdirectory_output, f'{ix+1}.wav'), format='wav')
 
 
-add_environment_sounds(voice_booster, noise_hinder, voices_folder, noise_folder, output_folder, percentage)
+if __name__ == '__main__':
+    add_environment_sounds(voice_booster, noise_hinder, voices_folder, noise_folder, output_folder, percentage)
