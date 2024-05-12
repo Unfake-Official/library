@@ -1,5 +1,6 @@
 import os
 import random
+import numpy as np
 from pydub import AudioSegment
 
 voice_booster = 7 # Increases voice audio in 7db
@@ -16,24 +17,31 @@ def add_environment_sounds(voice_booster, noise_hinder, voices_folder, noise_fol
     # Get random noises to introduce into the audios
     environment_sounds = [audio for audio in os.listdir(noise_folder)]
 
-    for subdirectory_input, _, _, in os.walk(voices_folder):
-        if subdirectory_input != voices_folder and not subdirectory_input.__contains__('wavs'):
-            print(f'Processing in: {subdirectory_input}')
+    for subdirectory_input in os.listdir(voices_folder):
+        speaker_folder = os.path.join(voices_folder, subdirectory_input)
+        if os.path.isdir(speaker_folder):
+            speaker_name = speaker_folder.split('\\' if '\\' in speaker_folder else '/')[-1]
+            wavs_folder = os.path.join(speaker_folder, 'wavs')
 
-            fake_audios = [audio for audio in os.listdir(subdirectory_input)]
-            audios_to_change = int(len(fake_audios) * percentage / 100)
-            audios = random.sample(fake_audios, audios_to_change)
-
-            speaker_name = subdirectory_input.split('\\' if '\\' in subdirectory_input else '/')[-1]
             subdirectory_output = os.path.join(output_folder, f'{speaker_name}_Environment')
+
+            print(f'Processing in: {wavs_folder}')
 
             os.makedirs(subdirectory_output, exist_ok=True)
 
-            for ix, audio in enumerate(audios):
+            audios_list = os.listdir(wavs_folder)
+            n_audios = len(audios_list)
+            np.random.shuffle(audios_list)
+            sample = random.sample(audios_list, int(n_audios * percentage / 100))
+
+            for ix, audio in enumerate(sample):
                 noise = random.choice(environment_sounds)
 
-                loaded_audio = AudioSegment.from_file(os.path.join(subdirectory_input, audio), format='wav')
-                loaded_noise = AudioSegment.from_file(os.path.join(noise_folder, noise), format='wav')
+                input_audio_file = os.path.join(wavs_folder, audio)
+                input_noise_file = os.path.join(noise_folder, noise)
+
+                loaded_audio = AudioSegment.from_file(input_audio_file, format='wav')
+                loaded_noise = AudioSegment.from_file(input_noise_file, format='wav')
 
                 handled_audio = loaded_audio + voice_booster
                 handled_noise = loaded_noise - noise_hinder
