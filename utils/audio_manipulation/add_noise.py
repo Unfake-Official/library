@@ -29,31 +29,31 @@ def noise_to_audio_spectrogram(D: np.ndarray, output_image_file, sr, noise_level
     new_image.save(output_image_file)
 
 
-input_folder = r"C:\Users\mcsgo\OneDrive\Documentos\VozesFalsas"
-output_folder = r"C:\Users\mcsgo\OneDrive\Documentos\Espectrogramas_Noise"
+input_folder = r"D:\-- TCC --\Vozes\Originais"
+output_folder = r"D:\-- TCC --\Vozes\Espectrogramas com Noise"
 
-n_spectrograms = 1000
 noise_rate = 0.5
 noise_percentage = 16.7
 
-is_fake = True
+def add_noise(input_folder, output_folder, noise_rate, noise_percentage):
+    for subdirectory_input in os.listdir(input_folder):
+        speaker_folder = os.path.join(input_folder, subdirectory_input)
+        if os.path.isdir(speaker_folder):
+            speaker_name = speaker_folder.split('\\' if '\\' in speaker_folder else '/')[-1]
+            wavs_folder = os.path.join(speaker_folder, 'wavs')
 
-def add_noise(input_folder, output_folder, n_spectrograms, noise_rate, noise_percentage):
-    for subdirectory_input, _, _, in os.walk(input_folder):
-        if subdirectory_input != input_folder:
+            print(f'Processing in: {wavs_folder}')
 
-            print(f'Processing in: {subdirectory_input}')
-
-            speaker_name = subdirectory_input.split('\\' if '\\' in subdirectory_input else '/')[-1]
             subdirectory_output = os.path.join(output_folder, f'{speaker_name}_Noise')
-
             os.makedirs(subdirectory_output, exist_ok=True)
 
-            spectrogram_list = os.listdir(subdirectory_input)
-            sample = random.sample(spectrogram_list, int(n_spectrograms * noise_percentage / 100))
+            audios_list = os.listdir(wavs_folder)
+            n_audios = len(audios_list)
+            np.random.shuffle(audios_list)
+            sample = random.sample(audios_list, int(n_audios * noise_percentage / 100))
 
             for ix, file_name in enumerate(sample):
-                input_audio_file = os.path.join(subdirectory_input, ('wavs' if not is_fake else ''), file_name)
+                input_audio_file = os.path.join(wavs_folder, file_name)
                 output_image_file = os.path.join(subdirectory_output, f'{ix+1}_noise.png')
                 try:
                     signal, sr = audio_to_spectrogram(input_audio_file, output_image_file, save=False)
@@ -61,4 +61,5 @@ def add_noise(input_folder, output_folder, n_spectrograms, noise_rate, noise_per
                 except:
                     continue
 
-add_noise(input_folder, output_folder, n_spectrograms, noise_rate, noise_percentage)
+
+add_noise(input_folder, output_folder, noise_rate, noise_percentage)

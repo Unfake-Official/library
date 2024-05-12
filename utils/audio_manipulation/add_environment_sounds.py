@@ -5,9 +5,9 @@ from pydub import AudioSegment
 voice_booster = 7 # Increases voice audio in 7db
 noise_hinder = 7 # Decreases noise audio in 7db
 
-voices_folder = r'C:\Users\mcsgo\OneDrive\Documentos\VozesFalsas'
-noise_folder  = r'C:\Users\mcsgo\OneDrive\Documentos\Noise'
-output_folder = r'C:\Users\mcsgo\OneDrive\Documentos\Environment'
+voices_folder = r'D:\-- TCC --\Vozes\Originais'
+noise_folder  = r'D:\-- TCC --\Ambient Noise\Noise'
+output_folder = r'D:\-- TCC --\Vozes\Espectrogramas com Sons Ambiente'
 
 # Get percentage of the original voices to change
 percentage = 16.7
