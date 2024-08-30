@@ -4,6 +4,7 @@ import librosa.display
 import numpy as np
 import matplotlib.pyplot as plt
 import PIL.Image as img
+from pydub import AudioSegment
 
 
 def plot_spectrogram(mel_spect: np.ndarray, sr: float):
@@ -15,6 +16,12 @@ def plot_spectrogram(mel_spect: np.ndarray, sr: float):
 
 
 def audio_to_spectrogram(input_audio_file: str, output_image_file: str, save: bool = True):
+    audio = AudioSegment.from_file(input_audio_file)
+    length = len(audio)
+    # from 0 to 10 sec
+    split_audio = audio[0: 10000 if length > 10000 else length]
+    split_audio.export(input_audio_file)
+
     y, sr = librosa.load(input_audio_file)
 
     C = np.abs(librosa.cqt(y, sr=sr))
