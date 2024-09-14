@@ -20,17 +20,17 @@ def audio_to_spectrogram(input_audio_file: str, output_image_file: str, save: bo
     C = librosa.amplitude_to_db(C, ref=np.max)
 
     if save:
-        plt.imsave(output_image_file, C, cmap='gray')
+        plt.imsave(output_image_file, C, cmap='viridis')
         image = img.open(output_image_file)
-        new_image = image.resize((256, 256))
+        new_image = image.resize((512, 256))
         new_image.save(output_image_file)
 
     return C, sr
 
 
-input_folder = r"C:\Users\mcsgo\OneDrive\Documentos\ASVSPOOF\PA\PA\ASVspoof2019_PA_eval\flac"
-output_folder = r"C:\Users\mcsgo\OneDrive\Documentos\ASVSPOOFSPEC\ASVspoof2019_PA_eval_Spectrograms"
-var = "eval"
+input_folder = r"C:\Users\mcsgo\OneDrive\Documentos\TCC\ASVSPOOF\PA\PA\ASVspoof2019_PA_train\flac"
+output_folder = r"C:\Users\mcsgo\OneDrive\Documentos\TCC\ASVSPOOFSPEC\ASVspoof2019_PA_train_Spectrograms"
+var = "train"
 
 
 def generate_spectrograms(input_folder, output_folder):

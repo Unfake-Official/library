@@ -23,9 +23,9 @@ def noise_to_audio_spectrogram(D: np.ndarray, output_image_file, sr, noise_level
     noisy_D = add_spectrogram_noise(D, noise_level=noise_level)
 
     # Save the noisy spectrogram as an image file
-    plt.imsave(output_image_file, noisy_D, cmap='gray')
+    plt.imsave(output_image_file, noisy_D, cmap='viridis')
     image = img.open(output_image_file)
-    new_image = image.resize((256, 256))
+    new_image = image.resize((512, 256))
     new_image.save(output_image_file)
 
 
