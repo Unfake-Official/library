@@ -1,22 +1,12 @@
 import os
-
-
-import os
 import librosa
 import librosa.display
 import numpy as np
 import matplotlib.pyplot as plt
 import PIL.Image as img
-from pydub import AudioSegment
 
 
 def audio_to_spectrogram(input_audio_file: str, output_image_file: str, save: bool = True):
-    audio = AudioSegment.from_file(input_audio_file)
-    length = len(audio)
-    # from 0 to 10 sec
-    split_audio = audio[0: 10000 if length > 10000 else length]
-    split_audio.export(input_audio_file)
-
     y, sr = librosa.load(input_audio_file)
 
     C = np.abs(librosa.cqt(y, sr=sr))
@@ -44,13 +34,14 @@ def generate_spectrograms(input_folder, output_folder):
 
             for file_name in os.listdir(subdirectory_input):
                 ix += 1
-                input_audio_file = os.path.join(subdirectory_input, file_name)
-                output_image_file = os.path.join(output_folder, f'{ix+1}_vctk.png')
+                if ix > 3827:
+                    input_audio_file = os.path.join(subdirectory_input, file_name)
+                    output_image_file = os.path.join(output_folder, f'{ix+1}_vctk.png')
 
-                try:
-                    audio_to_spectrogram(input_audio_file, output_image_file)
-                except:
-                    continue
+                    try:
+                        audio_to_spectrogram(input_audio_file, output_image_file)
+                    except Exception as e:
+                        print(e)
 
 
 if __name__ == '__main__':

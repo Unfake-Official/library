@@ -10,8 +10,8 @@ from generate_audios import generate_audios
 from TTS.tts.configs.xtts_config import XttsConfig
 from TTS.tts.models.xtts import Xtts
 
-input_folder  = r'C:\Users\mcsgo\OneDrive\Documentos\Vozes'
-output_folder = r'C:\Users\mcsgo\OneDrive\Documentos\VozesFalsas'
+input_folder  = r'C:\Users\mcsgo\OneDrive\Documentos\TCC\Vozes'
+output_folder = r'C:\Users\mcsgo\OneDrive\Documentos\TCC\VozesFalsas'
 
 for subdirectory_input, _, _, in os.walk(input_folder):
     # For each speaker in input folder

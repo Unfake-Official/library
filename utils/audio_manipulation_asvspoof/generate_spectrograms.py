@@ -4,16 +4,9 @@ import librosa.display
 import numpy as np
 import matplotlib.pyplot as plt
 import PIL.Image as img
-from pydub import AudioSegment
 
 
 def audio_to_spectrogram(input_audio_file: str, output_image_file: str, save: bool = True):
-    audio = AudioSegment.from_file(input_audio_file)
-    length = len(audio)
-    # from 0 to 10 sec
-    split_audio = audio[0: 10000 if length > 10000 else length]
-    split_audio.export(input_audio_file)
-
     y, sr = librosa.load(input_audio_file)
 
     C = np.abs(librosa.cqt(y, sr=sr))
@@ -28,15 +21,14 @@ def audio_to_spectrogram(input_audio_file: str, output_image_file: str, save: bo
     return C, sr
 
 
-input_folder = r"C:\Users\mcsgo\OneDrive\Documentos\TCC\ASVSPOOF\PA\PA\ASVspoof2019_PA_train\flac"
-output_folder = r"C:\Users\mcsgo\OneDrive\Documentos\TCC\ASVSPOOFSPEC\ASVspoof2019_PA_train_Spectrograms"
-var = "train"
+input_folder = r"C:\Users\mcsgo\OneDrive\Documentos\TCC\ASVSPOOF\LA\LA\ASVspoof2019_LA_eval\flac"
+output_folder = r"C:\Users\mcsgo\OneDrive\Documentos\TCC\ASVSPOOFSPEC\eval"
 
 
 def generate_spectrograms(input_folder, output_folder):
     for ix, file_name in enumerate(os.listdir(input_folder)):
         input_audio_file = os.path.join(input_folder, file_name)
-        output_image_file = os.path.join(output_folder, f'{ix+1}_{var}.png')
+        output_image_file = os.path.join(output_folder, f'{ix+1}_asvspoof.png')
 
         audio_to_spectrogram(input_audio_file, output_image_file)
 
